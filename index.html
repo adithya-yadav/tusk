@@ -15,7 +15,16 @@
 
       farmid.addEventListener("submit" , (e)=>{
         e.preventDefault()
-        localStorage.setItem(nameid.value.toString(),gamilid.value.toString())
+        var obj = {
+          name : nameid.value.toString(),
+          gmail : gamilid.value.toString()
+        }
+        localStorage.setItem("myobj",JSON.stringify(obj))
+        console.log(localStorage)
+        var toObj = JSON.parse(localStorage.getItem("myobj"))
+        console.log(toObj)
+        nameid.value = "";
+        gamilid.value = "";
       })
 
     </script>
