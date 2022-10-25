@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>local Storage</title>
+  </head>
+  <body>
+    <form id="formid">
+      <input type="text" placeholder="name" id="nameid">
+      <input type="text" placeholder="Gmail" id="gmailid">
+      <input type="submit" value="submit" >
+    </form>
+    <script>
+      var farmid = document.querySelector("#formid")
+      var nameid = document.querySelector("#nameid")
+      var gamilid = document.querySelector("#gmailid")
+
+      farmid.addEventListener("submit" , (e)=>{
+        e.preventDefault()
+        localStorage.setItem(nameid.value.toString(),gamilid.value.toString())
+      })
+
+    </script>
+  </body>
+</html>
