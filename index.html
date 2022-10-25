@@ -1,93 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>local Storage</title>
+  </head>
+  <body>
+    <form id="formid">
+      <input type="text" placeholder="name" id="nameid">
+      <input type="text" placeholder="Gmail" id="gmailid">
+      <input type="submit" value="submit" >
+    </form>
+    <script>
+      var farmid = document.querySelector("#formid")
+      var nameid = document.querySelector("#nameid")
+      var gamilid = document.querySelector("#gmailid")
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <title>Item Lister</title>
-</head>
-
-<body>
-  <header id="main-header" class="bg-success text-white p-4 mb-3">
-    <div class="container">
-      <h1 id="header-title">Item Lister <span style="display:none">123</span></h1>
-      <input type="text" id="search" placeholder="Search Item">
-    </div>
-  </header>
-  <div class="container">
-    <div id="main" class="card card-body">
-      <h2 class="title">Add Items</h2>
-      <form class="form-inline mb-3" id="addForm">
-        <input type="text" class="form-control mr-2" id="item">
-        <input type="submit" class="btn btn-dark" value="Submit">
-      </form>
-      <h2 class="title">Items</h2>
-      <ul id="items" class="list-group">
-        <li class="list-group-item">Item 1</li>
-        <li class="list-group-item">Item 2</li>
-        <li class="list-group-item">Item 3</li>
-        <li class="list-group-item">Item 4</li>
-      </ul>
-    </div>
-  </div>
-  <!-- <script src="app.js"></script> -->
-  <script>
-    var form = document.getElementById("addForm")
-    var itemList = document.getElementById("items")
-    var filter = document.getElementById("search")
-
-
-    form.addEventListener("submit", addItem);
-    itemList.addEventListener("click", removeItem)
-    filter.addEventListener("keyup", filterItem)
-    function addItem(e) {
-      e.preventDefault()
-
-      var newItem = document.getElementById("item").value;
-      var li = document.createElement("li");
-      li.className = "list-group-item";
-      if (newItem.length) {
-        li.appendChild(document.createTextNode(newItem))
-        document.getElementById("item").value = ""
-
-        var deletebtn = document.createElement("button")
-        deletebtn.className = "btn btn-danger btn-sm float-right delete";
-        deletebtn.appendChild(document.createTextNode('X'))
-        li.appendChild(deletebtn)
-
-        var editbtn = document.createElement("button")
-        editbtn.className = "btn btn-sm float-right delete";
-        editbtn.appendChild(document.createTextNode("edit"))
-        li.appendChild(editbtn)
-
-        itemList.appendChild(li)
-      }
-    }
-
-    function removeItem(e) {
-      if (e.target.classList.contains("delete")) {
-        var lii = e.target.parentElement;
-        itemList.removeChild(lii)
-      }
-    }
-
-    function filterItem(e) {
-      var item = e.target.value.toLowerCase()
-      var listitem = itemList.getElementsByTagName("li");
-      Array.from(listitem).forEach((itm) => {
-        var selectItem = itm.firstChild.textContent;
-        if (selectItem.toLocaleLowerCase().indexOf(item) != -1) {
-          itm.style.display = "block";
-        } else {
-          itm.style.display = "none";
-        }
+      farmid.addEventListener("submit" , (e)=>{
+        e.preventDefault()
+        localStorage.setItem(nameid.value.toString(),gamilid.value.toString())
       })
 
-    }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
