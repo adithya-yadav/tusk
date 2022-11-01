@@ -1,0 +1,41 @@
+// function 
+let func = function(){
+    console.log(this.num)
+}
+let obj1 ={
+    num : 1
+}
+let obj2 = {
+    num : 2
+}
+// using "call" to call the function
+func.call(obj1)
+// program useing apply
+func.apply(obj2)
+// program using bind 
+let bindfunc = func.bind(obj1)
+console.log(bindfunc)
+
+let student ={
+    age:20
+}
+let studentfunc = function (){
+    console.log(this.age)
+}
+// printing age of student;
+studentfunc.call(student)
+studentfunc.apply(student)
+
+
+//  currying
+
+let multiply = function (x){
+    return function (y){
+        console.log(x*y);
+    }
+}
+let multiplyByTwo = multiply(2)
+multiplyByTwo(10)
+
+let multiplyByThree = multiply(3)
+multiplyByThree(10)
