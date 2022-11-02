@@ -1,0 +1,83 @@
+// question 1
+"use strict";
+
+
+
+var a = 4;
+
+var add = a=>a+a
+
+var square  = () =>{return a*a}
+
+var multi = _ =>{return a*2}
+
+
+
+console.log(add(a),square(a),multi(a))
+
+
+
+var arrowInsideFunc = function(){
+
+    this.val = 1
+
+    setTimeout(()=>{
+
+        this.val++
+
+        console.log(this.val)
+
+    },1)
+
+    console.log(this.val)
+
+}
+
+var ans = new arrowInsideFunc()
+
+
+
+ // question 2&3
+ "use strict"
+
+class student {
+
+    constructor(name,age,marks){
+
+        this.name = name;
+
+        this.age = age;
+
+        this.marks=marks;
+
+    }
+
+    placementAge_marks(minage){
+
+        return (minmarks)=>{
+
+            if(this.marks>minmarks && this.age >minage){
+
+                console.log(`${this.name} is eligible for placements`)
+
+            }else{
+
+                console.log(`${this.name} is not eligible`)
+
+            }
+
+        }
+
+    }
+
+}
+
+const ram = new student("ram",22,45)
+
+const shyam = new student("shyam",25,35)
+
+
+
+ram.placementAge_marks(20)(40)
+
+shyam.placementAge_marks(20)(40)
