@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>local Storage</title>
+</head>
+
+<body>
+    <form id="formid">
+        <label for="amount">Amount :</label>
+        <input type="text" placeholder="Amount" id="amount" name="amountname">
+        <label for="description">description :</label>
+        <input type="text" placeholder="description" id="description" name="descriptionname">
+
+        <label for="category">category :</label>
+        <select name="categoryname" id="category">
+            <option value="fuel">fuel</option>
+            <option value="food">food</option>
+            <option value="electricity">electricity</option>
+            <option value="movie">movie</option>
+        </select>
+        <input type="submit" value="Add Expense">
+    </form>
+    <ul id="ulid"></ul>
+    <script>
+        var farmid = document.querySelector("#formid")
+        //var discriptionid = document.getElementById("description")
+        farmid.addEventListener("submit", submitEvent)
+        function submitEvent(e) {
+            e.preventDefault()
+            if (e.target.amountname.value.length > 0 && e.target.descriptionname.value.length > 0) {
+                var amountval = e.target.amountname.value;
+                var discriptionval = e.target.descriptionname.value;
+                var categoryval = e.target.categoryname.value;
+
+                var obj = {
+                    amountval,
+                    discriptionval,
+                    categoryval
+                }
+            } else {
+                alert("fill details")
+            }
+            localStorage.setItem(obj.discriptionval,JSON.stringify(obj))
+            var parentNode = document.getElementById("ulid")
+            var childHTMl = `<li id=${obj.discriptionval}>${obj.amountval} ${obj.discriptionval}-${obj.categoryval}
+            <button>edit</button><button onclick=deleteLi('${obj.discriptionval}') > X </button></li>`
+            parentNode.innerHTML = parentNode.innerHTML + childHTMl;
+        }
+        function deleteLi(discriptionid) {
+            localStorage.removeItem(discriptionid)
+            var parentNode = document.getElementById("ulid")
+            var childNodeDelete = document.getElementById(discriptionid)
+            if (childNodeDelete) {
+                parentNode.removeChild(childNodeDelete)
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
