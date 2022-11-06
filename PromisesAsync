@@ -1,0 +1,158 @@
+console.log("person1 ; show ticket")
+console.log("person2 ; show ticket")
+async function preMovie(){
+    const promiseWifeBringTickets = new Promise((resolve)=>{
+        setTimeout(()=>resolve("tickets"),3000);
+    })
+    const getpopcorn = new Promise(resolve=>resolve(`popcorn`))
+    const addbutter = new Promise(resolve=>resolve(`butter`))
+    const getcooldrink = new Promise(resolve=>resolve(`cool drink`))
+    let ticket = await promiseWifeBringTickets;
+    console.log(`wife :i have ${ticket}`)
+    console.log("husband :we should go in")
+    console.log("wife : No iam hungry")
+
+    let popcorn = await getpopcorn
+    console.log(`husband : i got some ${popcorn}`)
+    console.log("husband : we should go in");
+    console.log("wife : I need butter on my popcorn")
+
+    let butter = await addbutter
+    console.log(`husband : i got some ${butter} on popcorn`);
+    console.log(" husband : anything else dear?");
+    console.log("wife : yup i want cool drink go and get cool drink")
+
+    let cooldrink = await getcooldrink
+    console.log(`husband i got a  ${cooldrink}`),
+    console.log("wife : lets go we are getting late")
+    console.log("husband : thank you for remembering")
+}
+preMovie() 
+console.log("person4 ; show ticket")
+console.log("person5 ; show ticket")
+
+const d = new Date();
+let seconds = new Date().getTime();
+
+let posts = [{
+    title:"post one",
+    body:"this is post one",
+    second : `created at ${new Date().getTime()} ago`
+},{
+    title:"post two",
+    body:"this is post two",
+    second : `created at ${new Date().getTime()} ago`
+}]
+/// Convert the createPost , deletePost you wrote previously into async await completely.
+function getPost(){
+    setTimeout(()=>{
+        let output = "";
+        posts.forEach((post)=>{
+            output+=`<li>${post.title} created at ${post.second=new Date().getTime()} ago</li>`;
+        })
+        document.body.innerHTML = output;
+    },1000)
+
+}
+async function createPost (post){ 
+    const pushpost = await new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            posts.push(post);
+            const error = false;
+            if(!error){
+                resolve()
+            }else reject("error: some thing went wrong")
+        }, 1000);
+    })
+    return pushpost
+}
+async function deletePost(){
+    const poppromise = await new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            if(posts.values!== 0){
+                resolve(posts.pop())
+            }else {
+                reject("error: Array is empty now")
+            }
+        }, 1000);
+    })
+    return poppromise
+}
+
+async function createAndDel(post) {
+    try{
+        var create = await new Promise(()=>{
+            resolve( createPost(post))
+        })
+        console.log(create)
+        var get = await new Promise(res=>res(getPost()))
+        console.log(get)
+        var del = await new Promise(res=>res(deletePost()))
+        console.log(del)
+    }
+    catch{err=>console.log(err)}
+}
+createAndDel({title:"post three",body:"this is post three",secound:`created at ${new Date().getTime()} ago`})
+
+createPost({title:"post four",body:"this is post four",secound:`created at ${new Date().getTime()} ago`})
+
+console.log(posts)
+
+
+// Interview question promises were discovered 
+// * When we use the callback to for handleing async functions like setTimeout it is deficult and confuse the code to handle this problem promises were discovered ,Promise can make code easy and readable
+
+
+// Why are async await better than promise.then design pattern? ? Explain with an example.
+// async await is better than promise.then design pattern because if there are multiple promises then we use primise.then multiple times async await we can handle multiple promises in one function and it is easy to understand code 
+
+//examples if we execute promises line by line;
+ console.log("using promise.then example")
+const promise1 = new Promise(resolve=>resolve(console.log("promise1")))
+const promise2 = new Promise(resolve=>resolve(console.log("promise2")))
+const promise3 = new Promise((resolve)=>{
+    setTimeout(resolve,1000,console.log("promise3"))
+})
+promise1.then(()=>{
+    promise2.then(()=>{
+        promise3
+    })
+})
+
+console.log("async await using example")
+async function asyncFunc (){
+    const promise1 =await new Promise(resolve=>resolve("promise1"))
+    console.log(promise1)
+    const promise2 =await new Promise(resolve=>resolve("promise2"))
+    console.log(promise2)
+    const promise3 =await new Promise((resolve)=>{
+        setTimeout(resolve,1000,"promise3")
+    })
+    console.log(promise3)
+}
+asyncFunc()
+
+// Write your own answer with an example
+
+function buyTv (){
+    return new Promise((res)=>{
+        setTimeout(()=>{
+            res("delevered tv after 2 days")
+        },5000)
+    })
+}
+function installMovie(){
+    return new Promise(res=>res("Install Movie"))
+}
+function watchMovie(){
+    return new Promise(res=>res("watching Movie"))
+}
+async function haveAfun(){
+    const buytv = await buyTv()
+    console.log(buytv)
+    const installmovie = await installMovie()
+    console.log(installmovie)
+    const watchmovie = await watchMovie()
+    console.log(watchmovie)
+}
+haveAfun()
