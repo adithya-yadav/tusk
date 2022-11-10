@@ -1,0 +1,56 @@
+<html>
+
+<head>
+  <title>curd cued</title>
+</head>
+
+<body>
+  <form id="formid">
+    <input type="text" placeholder="name" id="nameid" name="username">
+    <input type="text" placeholder="Gmail" id="gmailid" name="gmail">
+    <input type="submit" value="submit">
+  </form>
+  <ul id="items"></ul>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+  <script>
+    var farmid = document.querySelector("#formid")
+    var gmailid = document.getElementById("gmailid")
+    farmid.addEventListener("submit", submitEvent)
+    function submitEvent(e) {
+      e.preventDefault()
+      var name = e.target.username.value;
+      var gmail = e.target.gmail.value
+      var obj ={
+        name,
+        gmail
+      }
+      axios.post("https://crudcrud.com/api/eb5ad8208fd48eb80c84ba37a7ea82/appointme",obj)
+        .then(res=>{
+            console.log(res)
+        }).catch(err=>{
+            document.body.innerHTML=document.body.innerHTML+"<h2>some thing went wrong</h2>"
+            console.log(err)
+        })
+      //localStorage.setItem(obj.gmail,JSON.stringify(obj))
+      var parentNode = document.querySelector("#items")
+      var childHTMl = `<li id=${obj.gmail}> ${obj.name}-${obj.gmail}
+        <button>edit</button> <button onclick=deleteUser('${obj.gmail}') > X </button></li>`
+      parentNode.innerHTML = parentNode.innerHTML + childHTMl;
+    }
+    // function deleteUser(gmailid){
+    
+    //     localStorage.removeItem(gmailid)
+    //     removeUserfrmScreen(gmailid)
+    // }
+    function deleteUser(gmailid){
+        var parentNode = document.getElementById("items")
+        var childNodeDelete = document.getElementById(gmailid)
+        if(childNodeDelete){
+          parentNode.removeChild(childNodeDelete)
+        }
+        
+    }
+  </script>
+</body>
+
+</html>
